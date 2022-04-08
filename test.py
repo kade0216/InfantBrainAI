@@ -32,7 +32,10 @@ with torch.no_grad():
         # load test scans, define output name
         print('Loading test image: ' + i)
         pred_name = i.split(opt.extension)[0] + '_7Subcortical_Seg.nii.gz'
-
+        try:
+            nib.load(os.path.join(test_path,i))
+        except ValueError:
+            nib.Nifti1Header.quaternion_threshold = -1e-06
         tmp_scans = np.squeeze(nib.load(os.path.join(test_path,i)).get_fdata())
         tmp_scans[tmp_scans < 0] = 0
 
