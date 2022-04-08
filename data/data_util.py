@@ -12,6 +12,7 @@ def label_remapping(mask, mapping_file):
         ori_idx = tmp['LabelID']
         mapped_idx = tmp['MappedLabelID']
         res[mask == ori_idx] = mapped_idx
+        res = np.round(res).astype(np.int)
     return res
 
 

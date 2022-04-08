@@ -18,7 +18,7 @@ class BaseOptions():
                                  help='models are saved here')
         self.parser.add_argument('--model', type=str, default='3DUNet', help='which model to use')
         self.parser.add_argument('--batchSize', type=int, default=2, help='input batch size')
-        self.parser.add_argument('--dataroot', type=str, default='/media/win_ssd/Ubuntu/Subcortical_Seg/datasets/OASIS_Seg')
+        self.parser.add_argument('--dataroot', type=str, default='/media/win_ssd/Ubuntu/Subcortical_Seg/datasets/CANDI13_duplicate')
         self.parser.add_argument('--label_nc', type=int, default=0, help='# of input label channels')
         self.parser.add_argument('--input_nc', type=int, default=1, help='# of input image channels')
         self.parser.add_argument('--output_nc', type=int, default=8, help='# of output image channels')

@@ -31,7 +31,7 @@ with torch.no_grad():
     for i in test_lst:
         # load test scans, define output name
         print('Loading test image: ' + i)
-        pred_name = i.split(opt.extension)[0] + '_7Subcortical_Seg.nii.gz'
+        pred_name = i.split(opt.extension)[0] + '_7Subcortical_Seg' + opt.extension
         try:
             nib.load(os.path.join(test_path,i))
         except ValueError:
@@ -61,8 +61,6 @@ with torch.no_grad():
         pred_vol = sf(torch.from_numpy(pred)).numpy()
         pred_vol = np.argmax(pred_vol, axis=0).astype(np.float)
         ori_scan = nib.load(os.path.join(test_path, i))
-        sav_img = nib.Nifti1Image(pred_vol, ori_scan.affine, header=ori_scan.header)
-
+        sav_img = nib.Nifti1Image(np.round(pred_vol).astype(np.int), ori_scan.affine, header=ori_scan.header)
         nib.save(sav_img, os.path.join(des, pred_name))
-        sav_img = nib.Nifti1Image(tmp_norm[0,:,:,:], ori_scan.affine, header=ori_scan.header)
 
