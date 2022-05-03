@@ -1,0 +1,6 @@
+# IDE generated files and caches
+__pycache__
+.vscode
+
+# virtual environment
+venv*
