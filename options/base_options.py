@@ -11,14 +11,14 @@ class BaseOptions():
 
     def initialize(self):
         # experiment specifics
-        self.parser.add_argument('--name', type=str, default='Subcortical_OASIS',
+        self.parser.add_argument('--name', type=str, default='ckpt',
                                  help='name of the experiment. It decides where to store samples and models')
         self.parser.add_argument('--gpu_ids', type=str, default='0', help='gpu ids: e.g. 0  0,1,2, 0,2. use -1 for CPU')
-        self.parser.add_argument('--checkpoints_dir', type=str, default='/media/win_ssd/Ubuntu/Subcortical_Seg/ckpts',
+        self.parser.add_argument('--checkpoints_dir', type=str, default='models',
                                  help='models are saved here')
         self.parser.add_argument('--model', type=str, default='3DUNet', help='which model to use')
         self.parser.add_argument('--batchSize', type=int, default=2, help='input batch size')
-        self.parser.add_argument('--dataroot', type=str, default='/media/win_ssd/Ubuntu/Subcortical_Seg/datasets/CANDI13_duplicate')
+        self.parser.add_argument('--dataroot', type=str, default='')
         self.parser.add_argument('--label_nc', type=int, default=0, help='# of input label channels')
         self.parser.add_argument('--input_nc', type=int, default=1, help='# of input image channels')
         self.parser.add_argument('--output_nc', type=int, default=8, help='# of output image channels')
@@ -36,7 +36,7 @@ class BaseOptions():
         # for data:
         self.parser.add_argument('--extension', type=str, default='.nii', help='initial learning rate for adam')
         self.parser.add_argument('--normalize', type=bool, default=True, help='initial learning rate for adam')
-        self.parser.add_argument('--remapping', type=bool, default=True, help='initial learning rate for adam')
+        self.parser.add_argument('--remapping', type=bool, default=False, help='initial learning rate for adam')
         self.parser.add_argument('--remap_csv', type=str, default='/media/win_ssd/Ubuntu/Subcortical_Seg/Subcortical_mapping.csv',
                                  help='initial learning rate for adam')
         self.parser.add_argument('--norm_perc', type=float, default=99.5, help='initial learning rate for adam')

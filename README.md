@@ -15,4 +15,4 @@ find more configurations in [**/options/base_options.py**](/options/base_options
 python test.py --name YOURNAME --checkpoints_dir YOURPATH --dataroot YOURPATH --whichmodel YOURMODELNAME 
 ```
 
-find more configurations in /options/base_options.py and /options/test_options.py
+find more configurations in [**/options/base_options.py**](/options/base_options.py) and [**/options/test_options.py**](/options/test_options.py)
