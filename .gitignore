@@ -12,3 +12,6 @@ test_img
 
 # predictions
 results
+
+# local testing environment
+test_dir

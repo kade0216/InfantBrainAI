@@ -13,9 +13,9 @@ from flask import request
 import torch
 import numpy as np
 
-import src.model_package.models.models as models
-import src.model_package.options.test_options as options
-import src.model_package.data.data_util as data_util
+import model_package.models.models as models
+import model_package.options.test_options as options
+import model_package.data.data_util as data_util
 
 prefix = "/opt/ml/"
 model_path = os.path.join(prefix, "model")
@@ -40,8 +40,8 @@ class ScoringService(object):
             G = models.create_model(opt=opt)
             G.to(device)
             print(G)
-            with open(os.path.join(model_path, "latest.pkl"), "rb") as inp:
-                G.load_state_dict(torch.load(inp))
+            with open(os.path.join(model_path, "latest.pth"), "rb") as inp:
+                G.load_state_dict(torch.load(inp, map_location=device))
                 cls.model = G
             return cls.model
 
