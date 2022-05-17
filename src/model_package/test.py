@@ -63,4 +63,3 @@ with torch.no_grad():
         ori_scan = nib.load(os.path.join(test_path, i))
         sav_img = nib.Nifti1Image(np.round(pred_vol).astype(np.int), ori_scan.affine, header=ori_scan.header)
         nib.save(sav_img, os.path.join(des, pred_name))
-
