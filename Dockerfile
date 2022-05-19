@@ -1,4 +1,5 @@
-FROM pytorch/pytorch
+# FROM pytorch/pytorch
+FROM pytorch/pytorch:1.11.0-cuda11.3-cudnn8-runtime
 
 RUN apt-get -y update && apt-get install -y --no-install-recommends \
          wget \

@@ -19,12 +19,15 @@ import model_package.data.data_util as data_util
 
 prefix = "/opt/ml/"
 model_path = os.path.join(prefix, "model")
+input_path = os.path.join(prefix, 'input')
 out_path = os.path.join(prefix, 'output')
 
 opt = options.TestOptions().parse(save=False)
 opt.nThreads = 0  # test code only supports nThreads = 1
 opt.batchSize = 1  # test code only supports batchSize = 1
 opt.serial_batches = True  # no shuffle
+
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 class ScoringService(object):
     model = None
@@ -35,7 +38,6 @@ class ScoringService(object):
         
         '''
         if cls.model == None:
-            device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
             G = models.create_model(opt=opt)
             G.to(device)
@@ -50,6 +52,8 @@ class ScoringService(object):
         '''make a single prediction
         
         '''
+        G = cls.get_model()
+
         pred_name = '7Subcortical_Seg' + opt.extension
         try:
             nib.load(input)
@@ -71,7 +75,7 @@ class ScoringService(object):
 
         # go through all patches
         for idx, patch in enumerate(scan_patches):
-            ipt = torch.from_numpy(patch).to(dtype=torch.float).cuda()
+            ipt = torch.from_numpy(patch).to(device=device, dtype=torch.float)
             tmp_pred = G(ipt.reshape((1,1,)+ipt.shape))
             patch_idx = tmp_idx[idx]
             patch_idx = (slice(0, opt.cls_num),) + (slice(patch_idx[0], patch_idx[1]), slice(patch_idx[2], patch_idx[3]), slice(patch_idx[4], patch_idx[5]))
@@ -109,17 +113,23 @@ def transformation():
     '''
     if request.method == 'POST':
         if flask.request.content_type == "application/zip":
-            if not os.path.isdir('results'):
-                os.makedir('results')
+            if not os.path.isdir(input_path):
+                os.makedirs(input_path)
 
             bytes = flask.request.data
             zippedData = zipfile.ZipFile(io.BytesIO(bytes), 'r')
-
+            
+            niiFilePaths = []
             for zippedFileName in zippedData.namelist():
                 content = zippedData.open(zippedFileName).read()
-                fileOut = open('{}.nii'.format(uuid.uuid4()), 'wb')
+                niiFilePath = '{}.nii'.format(os.path.join(input_path, str(uuid.uuid4())))
+                niiFilePaths.append(niiFilePath)
+                fileOut = open(niiFilePath, 'wb')
                 fileOut.write(content)
                 fileOut.close()
+
+            for niiFilePath in niiFilePaths:
+                ScoringService.predict(niiFilePath)
 
             return flask.Response(response="prediction generated\n", status=200, mimetype="application/json")
         else:
