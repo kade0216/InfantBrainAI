@@ -23,8 +23,5 @@ ENV PATH="/opt/program:${PATH}"
 COPY src /opt/program
 WORKDIR /opt/program
 
-# build python dependencies
-# RUN pip --no-cache-dir install -r requirements.txt
-
 # grant execution permission to files
 RUN chmod +x serve

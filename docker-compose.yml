@@ -1,0 +1,25 @@
+version: '2'
+
+services:
+  redis:
+    image: redis
+
+  server:
+    build: .
+    command: bash -c "python serve"
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./test_dir:/opt/ml
+    depends_on:
+      - redis
+
+  worker:
+    build: .
+    command: bash -c "celery --app worker.celery worker --loglevel=info"
+    volumes:
+      - ./test_dir:/opt/ml
+    depends_on:
+      - redis
+      - server
+      
