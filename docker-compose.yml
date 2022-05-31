@@ -5,7 +5,7 @@ services:
     image: redis:7.0.0-alpine
 
   server:
-    build: .
+    build: ./src
     command: bash -c "python serve"
     ports:
       - "8080:8080"
@@ -15,7 +15,7 @@ services:
       - redis
 
   worker:
-    build: .
+    build: ./src
     command: bash -c "celery --app worker.celery worker --loglevel=info"
     volumes:
       - ./test_dir:/opt/ml

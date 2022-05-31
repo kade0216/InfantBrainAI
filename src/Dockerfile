@@ -19,7 +19,7 @@ ENV PYTHONDONTWRITEBYTECODE=TRUE
 ENV PATH="/opt/program:${PATH}"
 
 # Set up the program in the image
-COPY src /opt/program
+COPY . /opt/program
 WORKDIR /opt/program
 
 # grant execution permission to files
