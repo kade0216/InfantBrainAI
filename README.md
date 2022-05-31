@@ -1,15 +1,11 @@
-## Development Setup
-0. modify bash file permissions
+# Brain Segmentation Application
+## Local Development Setup
+1. build the application using docker-compose
 ```
-chmod +x *.sh
-```
-
-1. build docker image
-```
-./build_local.sh <image_name>
+sudo docker-compose build
 ```
 
-2. run docker container from image
+2. spin up the stack in detached mode
 ```
-./serve_local.sh <image_name>
+sudo docker-compose up -d
 ```

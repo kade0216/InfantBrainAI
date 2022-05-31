@@ -58,6 +58,7 @@ class ScoringService(object):
 
             # go through all patches
             for idx, patch in enumerate(scan_patches):
+                print('processing index ' + str(idx) + ' out of ' + str(len(scan_patches)))
                 ipt = torch.from_numpy(patch).to(device=device, dtype=torch.float)
                 tmp_pred = G(ipt.reshape((1,1,)+ipt.shape))
                 patch_idx = tmp_idx[idx]
