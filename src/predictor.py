@@ -53,9 +53,11 @@ def transformation():
                 fileOut.close()
 
             for niiFilePath in niiFilePaths:
-                worker.make_prediction.delay(niiFilePath)
-                # ScoringService.predict(niiFilePath)
-
+                if debug:
+                    ScoringService.predict(niiFilePath)
+                else:
+                    worker.make_prediction.delay(niiFilePath)
+                    
             return flask.Response(response="prediction generated\n", status=200, mimetype="application/json")
         else:
             return flask.Response(response="unsupported media type\n", status=415, mimetype="application/json")

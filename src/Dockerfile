@@ -1,9 +1,8 @@
 FROM pytorch/pytorch:1.11.0-cuda11.3-cudnn8-runtime
+# FROM 763104351884.dkr.ecr.us-east-1.amazonaws.com/pytorch-inference:1.11.0-cpu-py38-ubuntu20.04-sagemaker-v1.0
 
 RUN apt-get -y update && apt-get install -y --no-install-recommends \
          wget \
-         python3-pip \
-         python3-setuptools \
          nginx \
          ca-certificates \
     && rm -rf /var/lib/apt/lists/*

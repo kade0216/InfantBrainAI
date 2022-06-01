@@ -1,4 +1,7 @@
 # Brain Segmentation Application
+
+## AWS Sagemaker Deployment
+TBC
 ## Local Development Setup
 1. build the application using docker-compose
 ```

@@ -13,3 +13,5 @@ opt.batchSize = 1  # test code only supports batchSize = 1
 opt.serial_batches = True  # no shuffle
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+debug = False # change this to "True" when deploying on sagemaker
