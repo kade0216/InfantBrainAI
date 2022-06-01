@@ -25,7 +25,7 @@ class ScoringService(object):
                 G.load_state_dict(torch.load(inp, map_location=device))
                 cls.model = G
             # print('model and weight connected')
-            return cls.model
+        return cls.model
 
     @classmethod
     def predict(cls, input):

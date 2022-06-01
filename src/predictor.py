@@ -54,6 +54,7 @@ def transformation():
 
             for niiFilePath in niiFilePaths:
                 worker.make_prediction.delay(niiFilePath)
+                # ScoringService.predict(niiFilePath)
 
             return flask.Response(response="prediction generated\n", status=200, mimetype="application/json")
         else:
